@@ -14,7 +14,7 @@ He separado mi lista en categorías para que puedas buscarlo mejor, pronto haré
 - [Shadcn Shoogle](https://shoogle.dev/): Explorador interactivo para componentes Shadcn/ui.
 - [Claude Code Best Practice](https://github.com/shanraisshan/claude-code-best-practice): Guía de mejores prácticas para el uso de Claude Code.
 - [Delphi Tools](https://delphi.tools/): Colección de utilidades y herramientas para desarrolladores.
-- [OSINT Framework](https://osintframework.com/): Herramientas especializadas en investigación de fuentes abiertas.
+- [OSINT Framework](https://osintframework.com/): Herramientas especializadas en investigación de fuentes abiertas OSINT.
 - [AllSvgIcons](https://allsvgicons.com/): Repositorio masivo de iconos en formato SVG.
 - [System Prompts IA](https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools): Prompts de sistema de los modelos de IA más populares.
 - [Freesets](https://freesets.dev/): Conjuntos de recursos gráficos gratuitos para diseño.
@@ -150,7 +150,7 @@ He separado mi lista en categorías para que puedas buscarlo mejor, pronto haré
 - [Awesome Self-Hosted](https://github.com/awesome-selfhosted/awesome-selfhosted): Lista exhaustiva de software que puedes alojar en tus propios servidores.
 - [LibHunt](https://www.libhunt.com/): Descubre las mejores librerías y comparativas de software basadas en popularidad.
 - [React Native Directory](https://reactnative.directory/): El lugar definitivo para encontrar y comparar librerías de React Native.
-- [Skills Sh](https://skills.sh/): Herramienta para visualizar y compartir tus habilidades tecnológicas de forma profesional.
+- [Skills Sh](https://skills.sh/): Directorio para acceder a 'skills' de IA.
 
 ### 📄 LISTAS
 
