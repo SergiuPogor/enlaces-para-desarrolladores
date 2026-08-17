@@ -16,14 +16,13 @@ export interface Post {
   rawContent: string;
 }
 
-const postsDirectory = path.join(process.cwd(), "posts");
+const postsDirectory = path.join(process.cwd(), "content", "posts");
 
 /**
- * Obtiene todos los posts de la carpeta posts/ que estén publicados (published === true).
+ * Obtiene todos los posts diarios de recursos de content/posts/ que estén publicados (published === true).
  * Ordenados de forma descendente por fecha.
  */
 export async function getAllPosts(): Promise<Post[]> {
-  // Asegurar que el directorio existe
   if (!fs.existsSync(postsDirectory)) {
     return [];
   }
@@ -36,7 +35,6 @@ export async function getAllPosts(): Promise<Post[]> {
       const fullPath = path.join(postsDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, "utf8");
 
-      // Usar gray-matter para analizar la sección de metadatos del post
       const { data, content } = matter(fileContents);
 
       return {
@@ -45,32 +43,30 @@ export async function getAllPosts(): Promise<Post[]> {
         image: data.image || `/og/posts/${slug}.webp`,
         imageAlt: data.imageAlt || "",
         copy: data.copy || "",
-        category: data.category || "",
+        category: data.category || "Recursos",
         date: data.date
           ? data.date instanceof Date
             ? data.date.toISOString().split("T")[0]
             : String(data.date)
           : "",
         published: typeof data.published === "boolean" ? data.published : false,
-        content: "", // No convertimos el Markdown a HTML aquí por rendimiento en listados
+        content: "",
         rawContent: content,
       };
     })
-    // Filtrar para mostrar solo los publicados y cuya fecha sea igual o anterior a hoy (UTC)
     .filter((post) => {
       if (!post.published) return false;
       if (!post.date) return false;
-      const todayStr = new Date().toISOString().split("T")[0]; // "YYYY-MM-DD"
+      const todayStr = new Date().toISOString().split("T")[0];
       return post.date <= todayStr;
     })
-    // Ordenar posts por fecha de forma descendente
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 
   return allPostsData;
 }
 
 /**
- * Obtiene un post específico por su slug y procesa su contenido Markdown a HTML.
+ * Obtiene un post diario específico por su slug y procesa su contenido Markdown a HTML.
  */
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   try {
@@ -82,23 +78,20 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
 
-    // Si no está publicado, no se debe retornar públicamente
     if (data.published === false) {
       return null;
     }
 
-    // Si la fecha de publicación es futura, no se debe retornar públicamente
     if (data.date) {
       const postDateStr = data.date instanceof Date
         ? data.date.toISOString().split("T")[0]
         : String(data.date);
-      const todayStr = new Date().toISOString().split("T")[0]; // "YYYY-MM-DD"
+      const todayStr = new Date().toISOString().split("T")[0];
       if (postDateStr > todayStr) {
         return null;
       }
     }
 
-    // Convertir Markdown a HTML usando marked de forma segura
     const processedContent = await marked.parse(content);
 
     return {
@@ -107,7 +100,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       image: data.image || `/og/posts/${slug}.webp`,
       imageAlt: data.imageAlt || "",
       copy: data.copy || "",
-      category: data.category || "",
+      category: data.category || "Recursos",
       date: data.date
         ? data.date instanceof Date
           ? data.date.toISOString().split("T")[0]
@@ -118,7 +111,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       rawContent: content,
     };
   } catch (error) {
-    console.error(`Error leyendo el post con slug ${slug}:`, error);
+    console.error(`Error leyendo el post diario con slug ${slug}:`, error);
     return null;
   }
 }
